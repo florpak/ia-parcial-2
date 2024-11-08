@@ -26,7 +26,7 @@ public class Grid : MonoBehaviour
 
     public Node GetNode(int x, int y)
     {
-        if (x < 0 || x > _width || y < 0 || y > _height) return null;
+        if (x < 0 || x >= _width || y < 0 || y >= _height) return null;
         return _grid[x, y].GetComponent<Node>();
     }
     // Update is called once per frame

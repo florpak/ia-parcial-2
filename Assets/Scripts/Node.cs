@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Node : MonoBehaviour
@@ -8,13 +9,17 @@ public class Node : MonoBehaviour
     int _y;
     Grid _grid;
     List<Node> _neighbors = new List<Node>();
+    public float cost = 1;
+    public bool isBlocked = false;
+    [SerializeField] TextMeshProUGUI _textCost; 
+
+
     public List<Node> GetNeighbors()
     {
         if(_neighbors.Count > 0)
         {
             return _neighbors;
         }    
-        _neighbors = new List<Node>();
         Node neighbor;
         neighbor = _grid.GetNode(_x + 1, _y);
         if (neighbor != null) _neighbors.Add(neighbor);
@@ -34,6 +39,7 @@ public class Node : MonoBehaviour
         transform.position = pos;
         this._grid = grid;
         gameObject.name = "Node: " + _x + "," + _y;
+        SetCost(1);
     }
 
     private void OnDrawGizmosSelected()
@@ -43,5 +49,39 @@ public class Node : MonoBehaviour
         {
             Gizmos.DrawLine(transform.position, node.transform.position);
         }
+    }
+
+    private void OnMouseOver()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            GameManager.Instance.SetStartingNode(this);
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            GameManager.Instance.SetGoalNode(this);
+        }
+        if (Input.GetMouseButtonDown(2) || Input.GetKeyDown(KeyCode.F))
+        {
+            isBlocked = true;
+
+            GameManager.Instance.PaintGameObject(gameObject, isBlocked? Color.grey : Color.white);
+        }
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            SetCost(cost + 1);
+        }
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            SetCost(cost - 1);
+        }
+    }
+
+    public void SetCost(float newCost)
+    {
+        cost = Mathf.Clamp(newCost,1,99);
+        _textCost.text = cost.ToString();
+        _textCost.enabled = cost == 1?false : true;
     }
 }
