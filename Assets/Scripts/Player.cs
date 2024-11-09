@@ -5,9 +5,9 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public float speed;
-    List<Node> _path;
+    List<Parcial_Node> _path;
 
-    public void SetPath(List<Node> path)
+    public void SetPath(List<Parcial_Node> path)
     {
         _path = path;
         _path?.Reverse();

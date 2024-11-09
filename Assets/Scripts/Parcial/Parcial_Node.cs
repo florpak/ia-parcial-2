@@ -3,33 +3,18 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Node : MonoBehaviour
+public class Parcial_Node : MonoBehaviour
 {
     int _x;
     int _y;
-    Grid _grid;
-    List<Node> _neighbors = new List<Node>();
+    [SerializeField]List<Parcial_Node> _neighbors;
     public float cost = 1;
     public bool isBlocked = false;
     [SerializeField] TextMeshProUGUI _textCost; 
 
 
-    public List<Node> GetNeighbors()
+    public List<Parcial_Node> GetNeighbors()
     {
-        if(_neighbors.Count > 0)
-        {
-            return _neighbors;
-        }    
-        Node neighbor;
-        neighbor = _grid.GetNode(_x + 1, _y);
-        if (neighbor != null) _neighbors.Add(neighbor);
-        neighbor = _grid.GetNode(_x - 1, _y);
-        if (neighbor != null) _neighbors.Add(neighbor);
-        neighbor = _grid.GetNode(_x, _y + 1);
-        if (neighbor != null) _neighbors.Add(neighbor);
-        neighbor = _grid.GetNode(_x, _y - 1);
-        if (neighbor != null) _neighbors.Add(neighbor);
-
         return _neighbors;
     }
     public void Initialize(int x, int y, Vector3 pos, Grid grid)
@@ -37,7 +22,6 @@ public class Node : MonoBehaviour
         this._x = x;
         this._y = y;
         transform.position = pos;
-        this._grid = grid;
         gameObject.name = "Node: " + _x + "," + _y;
         SetCost(1);
     }
@@ -45,7 +29,7 @@ public class Node : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.black;
-        foreach(Node node in GetNeighbors())
+        foreach(Parcial_Node node in GetNeighbors())
         {
             Gizmos.DrawLine(transform.position, node.transform.position);
         }
@@ -55,12 +39,12 @@ public class Node : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            TestGameManager.Instance.SetStartingNode(this);
+            GameManager.Instance.SetStartingNode(this);
         }
 
         if (Input.GetMouseButtonDown(1))
         {
-            TestGameManager.Instance.SetGoalNode(this);
+            GameManager.Instance.SetGoalNode(this);
         }
         if (Input.GetMouseButtonDown(2) || Input.GetKeyDown(KeyCode.F))
         {

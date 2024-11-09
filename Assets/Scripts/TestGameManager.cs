@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class TestGameManager : MonoBehaviour
 {
     private Node _startingNode;
     private Node _goalNode;
     public Pathfinding pf;
     public Player player;
 
-    public static GameManager Instance;
+    public static TestGameManager Instance;
 
     public void SetStartingNode(Node node)
     {
