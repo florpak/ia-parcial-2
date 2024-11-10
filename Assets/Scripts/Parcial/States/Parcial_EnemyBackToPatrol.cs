@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class Parcial_EnemyChase : State
+public class Parcial_EnemyBackToPatrol : State
 {
     public float speed;
     List<Parcial_Node> _path;
-    Vector3 _target;
 
     public override void OnEnter(Vector3 target)
     {
-        _target = target;
         _path = GameManager.Instance.pf.AStar(GetNearestNode(), GetNearestNodeToTarget(target));
     }
 
@@ -53,14 +51,20 @@ public class Parcial_EnemyChase : State
 
     public override void OnUpdate()
     {
-        if(enemy.GetTargetPlayer()!= null)
+        if (enemy.GetTargetPlayer() != null)
         {
-            fsm.ChangeState(EnemyState.Follow,enemy.GetTargetPlayer().transform.position);
+            fsm.ChangeState(EnemyState.Follow, enemy.GetTargetPlayer().transform.position);
         }
-        if (_path != null && _path.Count > 0)
+        if (_path == null || _path.Count <= 0) fsm.ChangeState(EnemyState.Patrol, new Vector3(0, 0, 0));
+        if (_path != null && _path.Count != 0)
         {
             Vector3 dir = _path[0].transform.position - enemy.transform.position;
             dir.y = 0;
+            if (enemy.GetWayPoints().Contains(_path[0]) && dir.magnitude <= 0.01)
+            {
+                enemy.SetWayPointNumber(enemy.GetWayPoints().IndexOf(_path[0]));
+                fsm.ChangeState(EnemyState.Patrol, new Vector3(0, 0, 0));
+            } 
             if (dir.magnitude <= 0.01)
             {
                 _path.RemoveAt(0);
@@ -68,22 +72,9 @@ public class Parcial_EnemyChase : State
             }
             else
             {
-                enemy.Move(dir);
+                enemy.Move(_path[0].transform.position - enemy.transform.position);
             }
 
-        }
-        if (_path == null || _path.Count <= 0)
-        {
-            Vector3 dir = _target-enemy.transform.position;
-            dir.y = 0;
-            if (dir.magnitude <= 0.01)
-            {
-                fsm.ChangeState(EnemyState.BackToPatrol, new Vector3(0, 0, 0));
-            }
-            else
-            {
-                enemy.Move(dir);
-            }
         }
     }
 

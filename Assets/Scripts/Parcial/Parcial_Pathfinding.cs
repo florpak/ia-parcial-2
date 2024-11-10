@@ -25,7 +25,7 @@ public class Parcial_Pathfinding : MonoBehaviour
         while (frontier.Count > 0)
         {
             Parcial_Node current = frontier.Get();
-            GameManager.Instance.PaintGameObject(current.gameObject, Color.blue);
+            //GameManager.Instance.PaintGameObject(current.gameObject, Color.blue);
             if (current == goal)
             {
 
@@ -40,7 +40,7 @@ public class Parcial_Pathfinding : MonoBehaviour
                     path.Add(nodeToAdd);
                     nodeToAdd = cameFrom[nodeToAdd];
                 }
-
+                path.Reverse();
                 return path;
             }
 

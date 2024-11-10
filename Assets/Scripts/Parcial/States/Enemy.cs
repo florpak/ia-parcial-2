@@ -17,10 +17,22 @@ public class Enemy : MonoBehaviour
         fieldOfView = GetComponent<EnemyFieldOfView>();
         fsm = new FiniteStateMachine(this);
         fsm.AddState(EnemyState.Chase, new Parcial_EnemyChase());
+
+        fsm.AddState(EnemyState.BackToPatrol, new Parcial_EnemyBackToPatrol());
         fsm.AddState(EnemyState.Follow, new EnemyFollow());
         fsm.AddState(EnemyState.Patrol, new EnemyPatrolState());
         fsm.ChangeState(EnemyState.Patrol, transform.position);
+        EnemyFollow.onFoundPlayer += SetFollowState;
+
     }
+    public void SetFollowState(Vector3 target)
+    {
+        if (!(fsm.GetCurrentState() is EnemyFollow))
+        {
+            fsm.ChangeState(EnemyState.Chase, target);
+        }
+    }
+
 
     // Update is called once per frame
     void Update()

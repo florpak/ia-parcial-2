@@ -9,9 +9,20 @@ public class FiniteStateMachine : MonoBehaviour
     Enemy enemy;
 
 
+    private void Start()
+    {
+        EnemyFollow.onFoundPlayer += SetFollowState;
+    }
     public FiniteStateMachine(Enemy enemy)
     {
         this.enemy = enemy;
+    }
+    public void SetFollowState(Vector3 target)
+    {
+        if (GetCurrentState() is not Parcial_EnemyChase)
+        {
+            ChangeState(EnemyState.Chase, target);
+        }
     }
 
     public void AddState(EnemyState enemyState, State state)
@@ -40,11 +51,15 @@ public class FiniteStateMachine : MonoBehaviour
         if (allStates.ContainsKey(state)) _currentState = allStates[state];
         _currentState?.OnEnter(target);
     }
+    public State GetCurrentState()
+    {
+        return _currentState;
+    }
 }
 
 
 public enum EnemyState
 {
-    Idle, Patrol, Follow, Chase
+    Idle, Patrol, Follow, BackToPatrol, Chase
 }
 

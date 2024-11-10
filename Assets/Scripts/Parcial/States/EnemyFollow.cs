@@ -4,11 +4,22 @@ using UnityEngine;
 
 public class EnemyFollow : State
 {
+
+    public delegate void FoundPlayer(Vector3 position);
+    public static event FoundPlayer onFoundPlayer;
+
     public override void OnEnter(Vector3 target)
     {
-        //throw new System.NotImplementedException();
+        onFoundPlayer.Invoke(enemy.GetTargetPlayer().transform.position);
     }
 
+    public void SetFollowState(Vector3 target)
+    {
+        if (fsm.GetCurrentState() is not Parcial_EnemyChase)
+        {
+            fsm.ChangeState(EnemyState.Chase, target);
+        }
+    }
     public override void OnExit()
     {
         //throw new System.NotImplementedException();
@@ -26,7 +37,7 @@ public class EnemyFollow : State
         }
         else
         {
-            fsm.ChangeState(EnemyState.Chase, enemy.GetWayPoints()[enemy.GetWayPointNumber()].transform.position);
+            fsm.ChangeState(EnemyState.BackToPatrol, enemy.GetWayPoints()[enemy.GetWayPointNumber()].transform.position);
         }
     }
 }
