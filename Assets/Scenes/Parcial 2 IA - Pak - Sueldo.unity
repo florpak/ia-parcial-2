@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.4385842, g: 0.48669845, b: 0.56696934, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -682,7 +682,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58758a88ec736488e82eb8571b2d82f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocity: 0
+  velocity: 4
 --- !u!1 &192920411
 GameObject:
   m_ObjectHideFlags: 0
@@ -695,7 +695,8 @@ GameObject:
   - component: {fileID: 192920415}
   - component: {fileID: 192920414}
   - component: {fileID: 192920413}
-  - component: {fileID: 192920412}
+  - component: {fileID: 192920418}
+  - component: {fileID: 192920417}
   m_Layer: 0
   m_Name: Enemy (1)
   m_TagString: Untagged
@@ -703,25 +704,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &192920412
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 192920411}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15fed6bc66ad14f599057e67dc0709ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewRadius: 4
-  viewAngle: 90
-  enemies:
-  - {fileID: 143174936}
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 8
 --- !u!136 &192920413
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -811,6 +793,44 @@ Transform:
   - {fileID: 70240178}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &192920417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 192920411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d264b1476446b4bc1bff894fa1fae2d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayPoints:
+  - {fileID: 843075088}
+  - {fileID: 1001570598}
+  - {fileID: 1181442408}
+  - {fileID: 1147346828}
+  velocity: 3
+  waypointNumber: 0
+  fieldOfView: {fileID: 192920418}
+--- !u!114 &192920418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 192920411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24b1b2e88f4bc44f1b6d3a940a412128, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewRadius: 3
+  viewAngle: 90
+  player: {fileID: 143174936}
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &229560030
 GameObject:
   m_ObjectHideFlags: 0
@@ -1825,8 +1845,8 @@ GameObject:
   - component: {fileID: 556739906}
   - component: {fileID: 556739905}
   - component: {fileID: 556739904}
-  - component: {fileID: 556739903}
   - component: {fileID: 556739908}
+  - component: {fileID: 556739909}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -1834,25 +1854,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &556739903
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 556739902}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15fed6bc66ad14f599057e67dc0709ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewRadius: 4
-  viewAngle: 90
-  enemies:
-  - {fileID: 143174936}
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 8
 --- !u!136 &556739904
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1955,12 +1956,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wayPoints:
-  - {fileID: 1861691335}
-  - {fileID: 2108779676}
-  - {fileID: 1581884310}
-  - {fileID: 2089687941}
-  - {fileID: 680091453}
-  velocity: 4
+  - {fileID: 680091458}
+  - {fileID: 1861691340}
+  - {fileID: 2108779681}
+  - {fileID: 1581884315}
+  - {fileID: 2089687946}
+  velocity: 3
+  waypointNumber: 0
+  fieldOfView: {fileID: 0}
+--- !u!114 &556739909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 556739902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24b1b2e88f4bc44f1b6d3a940a412128, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewRadius: 3
+  viewAngle: 90
+  player: {fileID: 143174936}
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &610000452
 GameObject:
   m_ObjectHideFlags: 0
@@ -2421,7 +2442,8 @@ GameObject:
   - component: {fileID: 764979228}
   - component: {fileID: 764979227}
   - component: {fileID: 764979226}
-  - component: {fileID: 764979225}
+  - component: {fileID: 764979231}
+  - component: {fileID: 764979230}
   m_Layer: 0
   m_Name: Enemy (3)
   m_TagString: Untagged
@@ -2429,25 +2451,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &764979225
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 764979224}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15fed6bc66ad14f599057e67dc0709ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewRadius: 4
-  viewAngle: 90
-  enemies:
-  - {fileID: 143174936}
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 8
 --- !u!136 &764979226
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2537,6 +2540,42 @@ Transform:
   - {fileID: 1527417528}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &764979230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 764979224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d264b1476446b4bc1bff894fa1fae2d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayPoints:
+  - {fileID: 440625889}
+  - {fileID: 1157608134}
+  velocity: 3
+  waypointNumber: 0
+  fieldOfView: {fileID: 764979231}
+--- !u!114 &764979231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 764979224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24b1b2e88f4bc44f1b6d3a940a412128, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewRadius: 3
+  viewAngle: 90
+  player: {fileID: 143174936}
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &843075088
 GameObject:
   m_ObjectHideFlags: 0
@@ -2767,6 +2806,64 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!1 &937919979
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 937919982}
+  - component: {fileID: 937919981}
+  - component: {fileID: 937919980}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &937919980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937919979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc4c2ac66aefb4ffdbb63f9eae127937, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &937919981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937919979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26d20887b7dba4583b113a7273021cc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pf: {fileID: 937919980}
+--- !u!4 &937919982
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937919979}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 17.4, y: 3.22, z: -12.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &950418796
 GameObject:
   m_ObjectHideFlags: 0
@@ -3938,7 +4035,8 @@ GameObject:
   - component: {fileID: 1512044377}
   - component: {fileID: 1512044376}
   - component: {fileID: 1512044375}
-  - component: {fileID: 1512044374}
+  - component: {fileID: 1512044380}
+  - component: {fileID: 1512044379}
   m_Layer: 0
   m_Name: Enemy (2)
   m_TagString: Untagged
@@ -3946,25 +4044,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1512044374
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1512044373}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15fed6bc66ad14f599057e67dc0709ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewRadius: 4
-  viewAngle: 90
-  enemies:
-  - {fileID: 143174936}
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 8
 --- !u!136 &1512044375
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4054,6 +4133,44 @@ Transform:
   - {fileID: 1674516307}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &1512044379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1512044373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d264b1476446b4bc1bff894fa1fae2d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayPoints:
+  - {fileID: 447252822}
+  - {fileID: 707294429}
+  - {fileID: 1147346828}
+  - {fileID: 1181442408}
+  velocity: 3
+  waypointNumber: 0
+  fieldOfView: {fileID: 1512044380}
+--- !u!114 &1512044380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1512044373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24b1b2e88f4bc44f1b6d3a940a412128, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewRadius: 3
+  viewAngle: 90
+  player: {fileID: 143174936}
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &1527417527
 GameObject:
   m_ObjectHideFlags: 0
@@ -5456,3 +5573,4 @@ SceneRoots:
   - {fileID: 117538830}
   - {fileID: 32249074}
   - {fileID: 950418800}
+  - {fileID: 937919982}

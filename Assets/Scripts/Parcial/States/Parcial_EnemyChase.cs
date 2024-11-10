@@ -9,6 +9,28 @@ public class Parcial_EnemyChase : State
 
     public override void OnEnter(Vector3 target)
     {
+        _path = GameManager.Instance.pf.AStar(GetNearestNode(), GetNearestNodeToTarget(target));
+    }
+
+    public Parcial_Node GetNearestNode()
+    {
+        return enemy.GetWayPoints()[enemy.GetWayPointNumber()];
+    }
+
+    public Parcial_Node GetNearestNodeToTarget(Vector3 target)
+    {
+        float nearestDistance = Mathf.Infinity;
+        Parcial_Node nearestNodeToTarget = null;
+        foreach (Parcial_Node node in enemy.GetWayPoints())
+        {
+            float nodeDistanceToPlayer = Vector3.Distance(node.transform.position, target);
+            if (nodeDistanceToPlayer < nearestDistance)
+            {
+                nearestDistance = nodeDistanceToPlayer;
+                nearestNodeToTarget = node;
+            }
+        }
+        return nearestNodeToTarget;
     }
 
     public override void OnExit()

@@ -45,6 +45,6 @@ public class FiniteStateMachine : MonoBehaviour
 
 public enum EnemyState
 {
-    Idle, Patrol, Chase
+    Idle, Patrol, Follow, Chase
 }
 

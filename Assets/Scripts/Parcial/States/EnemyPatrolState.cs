@@ -11,16 +11,28 @@ public class EnemyPatrolState : State
 
     public override void OnExit()
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
     }
 
     public override void OnUpdate()
     {
-        foreach (GameObject waypoint in enemy.GetWayPoints())
+        if(enemy.GetTargetPlayer() != null)
         {
-            while (Vector3.Distance(enemy.transform.position, waypoint.transform.position) > 0.1f)
+            fsm.ChangeState(EnemyState.Follow, enemy.GetTargetPlayer().transform.position);
+        }
+        if (Vector3.Distance(enemy.GetWayPoints()[enemy.GetWayPointNumber()].transform.position, enemy.transform.position) > 0.1f)
+        {
+            enemy.Move(enemy.GetWayPoints()[enemy.GetWayPointNumber()].transform.position- enemy.transform.position);
+        }
+        else
+        {
+            if(enemy.GetWayPoints().Count -1 > enemy.GetWayPointNumber())
             {
-                enemy.Move(enemy.transform.position - waypoint.transform.position);
+                enemy.SetWayPointNumber(enemy.GetWayPointNumber() + 1);
+            }
+            else
+            {
+                enemy.SetWayPointNumber(0);
             }
         }
     }

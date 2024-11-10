@@ -17,19 +17,12 @@ public class EnemyFieldOfView : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (FieldOfView(player))
-        {
-            player.GetComponent<Renderer>().material.color = Color.red;
-        }
-        else
-        {
-            player.GetComponent<Renderer>().material.color = Color.white;
-        }
+
     }
 
-    private bool FieldOfView(GameObject obj)
+    public GameObject FieldOfView()
     {
-        Vector3 dir = obj.transform.position - transform.position;
+        Vector3 dir = player.transform.position - transform.position;
         if (dir.magnitude < viewRadius)
         {
             if (Vector3.Angle(transform.forward, dir) < viewAngle / 2)
@@ -37,18 +30,19 @@ public class EnemyFieldOfView : MonoBehaviour
                 Debug.DrawLine(transform.position, transform.position + dir);
                 if (!Physics.Raycast(transform.position, dir, out RaycastHit hit, dir.magnitude, wallLayer))
                 {
-                    return true;
+                    return player;
                 }
                 else
                 {
                     Debug.DrawLine(transform.position, hit.point, Color.red);
+                    return null;
                 }
             }
-            return false;
+            return null;
         }
         else
         {
-            return false;
+            return null;
         }
     }
 

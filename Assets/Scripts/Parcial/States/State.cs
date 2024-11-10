@@ -9,16 +9,4 @@ public abstract class State
     public abstract void OnExit();
     public FiniteStateMachine fsm;
     public Enemy enemy;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
