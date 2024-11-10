@@ -7,7 +7,6 @@ public class GameManager : MonoBehaviour
     private Parcial_Node _startingNode;
     private Parcial_Node _goalNode;
     public Parcial_Pathfinding pf;
-    public Parcial_EnemyChase enemy;
     [SerializeField] private List<Parcial_Node> allNodes = new List<Parcial_Node>();
 
     public static GameManager Instance;
@@ -36,10 +35,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        { 
-            enemy.SetPath(pf.AStar(_startingNode, _goalNode));
-        }
     }
 
     public void PaintGameObject(GameObject obj, Color color)

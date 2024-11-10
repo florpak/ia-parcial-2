@@ -78,7 +78,7 @@ public class Parcial_EnemyChase : State
             dir.y = 0;
             if (dir.magnitude <= 0.01)
             {
-                fsm.ChangeState(EnemyState.BackToPatrol, new Vector3(0, 0, 0));
+                fsm.ChangeState(EnemyState.BackToPatrol, enemy.GetWayPoints()[enemy.GetWayPointNumber()].transform.position);
             }
             else
             {

@@ -62,6 +62,7 @@ public class Parcial_EnemyBackToPatrol : State
             dir.y = 0;
             if (enemy.GetWayPoints().Contains(_path[0]) && dir.magnitude <= 0.01)
             {
+                
                 enemy.SetWayPointNumber(enemy.GetWayPoints().IndexOf(_path[0]));
                 fsm.ChangeState(EnemyState.Patrol, new Vector3(0, 0, 0));
             } 
